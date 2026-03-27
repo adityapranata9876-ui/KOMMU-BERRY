@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-berry-pink: #F48FB1;
+  --color-berry-light-pink: #FCE4EC;
+  --color-berry-purple: #D81B60;
+  --color-berry-plum: #880E4F;
+  --color-berry-cream: #FFF1F5;
+  --color-berry-white: #FFFFFF;
+}
+
+@layer base {
+  body {
+    @apply bg-berry-cream text-berry-plum font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-berry-purple text-white px-8 py-4 rounded-full font-bold transition-all hover:bg-berry-plum hover:scale-105 active:scale-95 shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-berry-purple border-2 border-berry-pink px-8 py-4 rounded-full font-bold transition-all hover:bg-berry-pink/10 hover:scale-105 active:scale-95 shadow-sm;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-berry-pink/30 rounded-3xl shadow-xl;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap');
