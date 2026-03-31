@@ -23,7 +23,8 @@ import {
   ThermometerSnowflake,
   RotateCw,
   Activity,
-  Globe
+  Globe,
+  X
 } from 'lucide-react';
 
 // --- Components ---
@@ -49,9 +50,14 @@ const Navbar = () => (
       <a href="#pricing" className="hover:text-berry-purple transition-colors">Shop</a>
       <a href="#faq" className="hover:text-berry-purple transition-colors">FAQ</a>
     </div>
-    <button className="bg-berry-purple text-white px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-berry-plum transition-all">
-      Pre-Order
-    </button>
+    <div className="hidden lg:flex items-center gap-4">
+      <a href="tel:0895418414576" className="text-xs font-bold text-berry-plum/60 hover:text-berry-purple transition-colors">
+        0895-4184-14576
+      </a>
+      <button className="bg-berry-purple text-white px-5 py-2 rounded-full font-bold text-sm shadow-md hover:bg-berry-plum transition-all">
+        Pre-Order
+      </button>
+    </div>
   </nav>
 );
 
@@ -96,10 +102,124 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
   );
 };
 
+const ProductModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-berry-plum/60 backdrop-blur-sm"
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          >
+            <button 
+              onClick={onClose}
+              className="absolute top-6 right-6 p-2 rounded-full bg-berry-cream hover:bg-berry-pink/20 text-berry-plum transition-colors z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="overflow-y-auto p-8 md:p-12">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-16 h-16 bg-berry-pink/20 rounded-2xl flex items-center justify-center">
+                  <Droplets className="w-8 h-8 text-berry-purple" />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-display font-bold text-berry-plum">KOMMU-BERRY</h2>
+                  <p className="text-berry-purple font-bold uppercase tracking-widest text-xs">The Science of Vitality</p>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-10">
+                <div>
+                  <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                    <Leaf className="w-5 h-5 text-berry-purple" /> Key Ingredients
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex gap-3">
+                      <div className="w-1.5 h-1.5 bg-berry-pink rounded-full mt-2 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-sm">Morus Nigra (Black Mulberry)</p>
+                        <p className="text-xs text-berry-plum/60">Premium leaves selected for high polyphenol and natural resveratrol content.</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-3">
+                      <div className="w-1.5 h-1.5 bg-berry-pink rounded-full mt-2 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-sm">Active SCOBY Culture</p>
+                        <p className="text-xs text-berry-plum/60">A symbiotic culture of bacteria and yeast that drives the 21-day fermentation.</p>
+                      </div>
+                    </li>
+                    <li className="flex gap-3">
+                      <div className="w-1.5 h-1.5 bg-berry-pink rounded-full mt-2 flex-shrink-0" />
+                      <div>
+                        <p className="font-bold text-sm">Organic Cane Sugar</p>
+                        <p className="text-xs text-berry-plum/60">Used as fuel for fermentation; mostly consumed by the SCOBY during the process.</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-berry-purple" /> Core Benefits
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-berry-light-pink/30 rounded-2xl border border-berry-pink/20">
+                      <p className="font-bold text-sm mb-1">Cellular Protection</p>
+                      <p className="text-xs text-berry-plum/60">High resveratrol levels help protect cells from oxidative damage and support longevity.</p>
+                    </div>
+                    <div className="p-4 bg-berry-light-pink/30 rounded-2xl border border-berry-pink/20">
+                      <p className="font-bold text-sm mb-1">Metabolic Support</p>
+                      <p className="text-xs text-berry-plum/60">Mulberry leaf compounds are traditionally used to help maintain healthy blood sugar levels.</p>
+                    </div>
+                    <div className="p-4 bg-berry-light-pink/30 rounded-2xl border border-berry-pink/20">
+                      <p className="font-bold text-sm mb-1">Bioavailable Nutrition</p>
+                      <p className="text-xs text-berry-plum/60">Fermentation pre-digests nutrients, making them easier for your gut to absorb.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12 pt-8 border-t border-berry-pink/20">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-berry-purple">2.5x</p>
+                      <p className="text-[10px] uppercase font-bold opacity-50">Resveratrol</p>
+                    </div>
+                    <div className="w-px h-8 bg-berry-pink/30" />
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-berry-purple">100%</p>
+                      <p className="text-[10px] uppercase font-bold opacity-50">Natural</p>
+                    </div>
+                  </div>
+                  <button onClick={onClose} className="btn-primary w-full md:w-auto">
+                    Got it, thanks!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
   const [showSticky, setShowSticky] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -153,15 +273,23 @@ export default function App() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative flex justify-center"
           >
-            <div className="relative z-10 w-full max-w-md aspect-[3/4] glass-card overflow-hidden flex flex-col items-center justify-center p-8 bg-gradient-to-br from-berry-pink/20 to-berry-purple/10">
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="relative z-10 w-full max-w-md aspect-[3/4] glass-card overflow-hidden flex flex-col items-center justify-center p-8 bg-gradient-to-br from-berry-pink/20 to-berry-purple/10 cursor-pointer hover:shadow-2xl hover:scale-[1.02] transition-all group/card text-left"
+            >
               {/* Product Placeholder */}
-              <div className="w-full h-full relative rounded-2xl overflow-hidden group flex items-center justify-center bg-white/40 border-2 border-dashed border-berry-pink/40">
+              <div className="w-full h-full relative rounded-2xl overflow-hidden flex items-center justify-center bg-white/40 border-2 border-dashed border-berry-pink/40 group-hover/card:border-berry-purple/40 transition-colors">
                 <div className="text-center p-6">
-                  <div className="w-20 h-20 bg-berry-pink/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-20 h-20 bg-berry-pink/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover/card:bg-berry-purple/20 transition-colors">
                     <Droplets className="w-10 h-10 text-berry-purple" />
                   </div>
                   <p className="font-display font-bold text-3xl text-berry-plum">KOMMU-BERRY</p>
                   <p className="text-xs uppercase tracking-widest opacity-60 font-bold text-berry-plum">Premium Infusion</p>
+                  <div className="mt-6 opacity-0 group-hover/card:opacity-100 transition-opacity">
+                    <span className="text-xs font-bold text-berry-purple flex items-center justify-center gap-1">
+                      View Details <Info className="w-3 h-3" />
+                    </span>
+                  </div>
                 </div>
               </div>
               
@@ -169,7 +297,7 @@ export default function App() {
               <div className="absolute top-12 right-12 opacity-60">
                 <Heart className="w-16 h-16 text-berry-pink fill-berry-pink animate-pulse" />
               </div>
-            </div>
+            </button>
             
             {/* Floating Stats */}
             <motion.div 
@@ -200,15 +328,15 @@ export default function App() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                 <p className="text-3xl font-bold text-berry-pink mb-2">1 in 8</p>
-                <p className="text-sm text-white/60">Women face breast health challenges in their lifetime.</p>
+                <p className="text-sm text-white/60">Women will be diagnosed with breast cancer. Early support is vital.</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-3xl font-bold text-berry-pink mb-2">90%</p>
-                <p className="text-sm text-white/60">Of wellness is built through daily lifestyle choices.</p>
+                <p className="text-3xl font-bold text-berry-pink mb-2">70%</p>
+                <p className="text-sm text-white/60">Of breast health is influenced by lifestyle and dietary antioxidants.</p>
               </div>
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-3xl font-bold text-berry-pink mb-2">Zero</p>
-                <p className="text-sm text-white/60">Compromise on taste or scientific integrity.</p>
+                <p className="text-3xl font-bold text-berry-pink mb-2">2.5x</p>
+                <p className="text-sm text-white/60">More resveratrol than standard kombucha for targeted protection.</p>
               </div>
             </div>
           </motion.div>
@@ -226,11 +354,11 @@ export default function App() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: Zap, title: "Rich in Antioxidants", desc: "Combat oxidative stress with high-potency polyphenols from fermented mulberry leaves.", img: "fresh-mulberries-1" },
-              { icon: FlaskConical, title: "Natural Resveratrol", desc: "Our unique fermentation process increases resveratrol content by up to 250%.", img: "science-wellness" },
-              { icon: Heart, title: "Supports Cellular Health", desc: "Designed to support healthy cell function and long-term vitality for women.", img: "feminine-wellness" },
+              { icon: ShieldCheck, title: "Breast Health Support", desc: "Formulated with resveratrol levels specifically researched for their role in supporting healthy breast tissue.", img: "feminine-wellness" },
+              { icon: FlaskConical, title: "Natural Resveratrol", desc: "Our unique fermentation process increases resveratrol content by up to 250% for maximum efficacy.", img: "science-wellness" },
               { icon: Droplets, title: "Better Absorption", desc: "Fermentation breaks down nutrients for maximum bioavailability and gut health.", img: "kombucha-glass-1" },
-              { icon: ShieldCheck, title: "Safe & Controlled", desc: "Maintained at an optimal pH (3.0-3.5) for safety and refreshing tartness.", img: "quality-control" },
-              { icon: ShoppingBag, title: "Daily Wellness Ritual", desc: "A simple, delicious habit that fits perfectly into your busy lifestyle.", img: "morning-ritual" }
+              { icon: Activity, title: "Cellular Vitality", desc: "Designed to support healthy cell function and long-term vitality for women's unique needs.", img: "quality-control" },
+              { icon: ShoppingBag, title: "Daily Wellness Ritual", desc: "A simple, delicious habit that fits perfectly into your proactive health lifestyle.", img: "morning-ritual" }
             ].map((benefit, i) => (
               <motion.div 
                 key={i}
@@ -306,8 +434,8 @@ export default function App() {
                     <CheckCircle2 className="w-4 h-4 text-berry-purple" />
                   </div>
                   <div>
-                    <p className="font-bold">2.5x Resveratrol Increase</p>
-                    <p className="text-sm text-berry-plum/60">Fermentation naturally enhances the key functional compound.</p>
+                    <p className="font-bold">Targeted Breast Health Support</p>
+                    <p className="text-sm text-berry-plum/60">Optimized resveratrol levels to support healthy cell division in breast tissue.</p>
                   </div>
                 </li>
                 <li className="flex gap-4">
@@ -425,9 +553,9 @@ export default function App() {
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Sarah J.", role: "Yoga Instructor", text: "I love the tart, refreshing taste. Knowing it's packed with resveratrol makes it my favorite post-practice ritual." },
-              { name: "Dr. Elena M.", role: "Nutritionist", text: "The science behind mulberry leaf fermentation is fascinating. It's a brilliant way to make functional nutrients accessible." },
-              { name: "Maya R.", role: "Graphic Designer", text: "Finally, a health drink that feels premium and actually has data to back it up. My daily 4 PM pick-me-up!" }
+              { name: "Halifah Ardina", role: "Yoga Instructor", text: "I love the tart, refreshing taste. Knowing it's packed with resveratrol makes it my favorite post-practice ritual." },
+              { name: "Fima Tiftisa", role: "Nutritionist", text: "The science behind mulberry leaf fermentation is fascinating. It's a brilliant way to make functional nutrients accessible." },
+              { name: "Risa Azzahra", role: "Graphic Designer", text: "Finally, a health drink that feels premium and actually has data to back it up. My daily 4 PM pick-me-up!" }
             ].map((testimonial, i) => (
               <div key={i} className="p-8 bg-white rounded-3xl shadow-sm border border-berry-pink/10">
                 <div className="flex gap-1 mb-4">
@@ -490,7 +618,7 @@ export default function App() {
             <div className="p-8 bg-white rounded-3xl border border-berry-pink/20 shadow-sm">
               <p className="text-sm font-bold text-berry-plum/50 uppercase mb-4">The Taster</p>
               <h3 className="text-2xl mb-2">Single Bottle</h3>
-              <p className="text-4xl font-bold mb-6">$5.99</p>
+              <p className="text-4xl font-bold mb-6">Rp 85.000</p>
               <ul className="space-y-3 mb-8 text-sm text-berry-plum/70">
                 <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-berry-purple" /> 250ml Glass Bottle</li>
                 <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-berry-purple" /> Freshly Fermented</li>
@@ -508,7 +636,7 @@ export default function App() {
               </div>
               <p className="text-sm font-bold text-berry-purple uppercase mb-4">The Ritual</p>
               <h3 className="text-2xl mb-2">Weekly Pack</h3>
-              <p className="text-4xl font-bold mb-2">$34.99</p>
+              <p className="text-4xl font-bold mb-2">Rp 549.000</p>
               <p className="text-xs text-berry-purple font-bold mb-6">Save 15%</p>
               <ul className="space-y-3 mb-8 text-sm text-berry-plum/70">
                 <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-berry-purple" /> 7 Bottles (Full Week)</li>
@@ -524,7 +652,7 @@ export default function App() {
             <div className="p-8 bg-white rounded-3xl border border-berry-pink/20 shadow-sm">
               <p className="text-sm font-bold text-berry-plum/50 uppercase mb-4">The Commitment</p>
               <h3 className="text-2xl mb-2">Monthly Bundle</h3>
-              <p className="text-4xl font-bold mb-2">$119.99</p>
+              <p className="text-4xl font-bold mb-2">Rp 1.899.000</p>
               <p className="text-xs text-green-600 font-bold mb-6">Best Value - Save 30%</p>
               <ul className="space-y-3 mb-8 text-sm text-berry-plum/70">
                 <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-berry-purple" /> 28 Bottles</li>
@@ -551,12 +679,12 @@ export default function App() {
           <SectionHeading title="Frequently Asked Questions" subtitle="Everything you need to know about your new wellness ritual." />
           <div className="glass-card p-8 bg-white/90">
             <FAQItem 
-              question="Is KOMMU-BERRY safe to drink daily?" 
-              answer="Yes! KOMMU-BERRY is designed as a functional beverage for daily consumption. It's 100% natural and fermented under controlled conditions. However, if you have specific health conditions or are pregnant, we always recommend consulting with your doctor."
+              question="How does KOMMU-BERRY support breast health?" 
+              answer="KOMMU-BERRY is enriched with natural resveratrol and polyphenols from fermented mulberry leaves. Scientific research suggests that these compounds play a significant role in supporting healthy cellular function and may provide protective benefits for breast tissue. Our fermentation process is specifically designed to maximize these bioactive compounds."
             />
             <FAQItem 
-              question="Does it cure or treat cancer?" 
-              answer="No. KOMMU-BERRY is a functional wellness drink designed to support a healthy lifestyle. It is rich in antioxidants and resveratrol, which are known to support cellular health, but it is not a medicine or a treatment for any disease."
+              question="Is it a replacement for medical treatment?" 
+              answer="Absolutely not. While KOMMU-BERRY is formulated to support breast health and cellular vitality through high-potency antioxidants, it is a functional wellness beverage, not a medicine. It should be used as part of a proactive, healthy lifestyle and never as a replacement for professional medical advice, screening, or treatment."
             />
             <FAQItem 
               question="Is it halal?" 
@@ -599,9 +727,14 @@ export default function App() {
             <button className="bg-white text-berry-purple px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:scale-105 active:scale-95 transition-all">
               Buy Now
             </button>
-            <button className="bg-berry-plum text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:bg-berry-plum/80 transition-all">
-              Join Waitlist
-            </button>
+            <a 
+              href="https://wa.me/62895418414576" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-berry-plum text-white border border-white/20 px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:bg-berry-plum/80 transition-all flex items-center justify-center gap-2"
+            >
+              Contact Us
+            </a>
           </div>
           <p className="mt-8 text-sm text-white/40">
             This product is not intended to diagnose, treat, cure, or prevent any disease.
@@ -614,11 +747,13 @@ export default function App() {
         <div className="flex justify-center mb-6">
           <Logo />
         </div>
-        <p className="text-sm text-berry-plum/50 mb-4">© 2026 KOMMU-BERRY. Inspired by local research & innovation.</p>
+        <p className="text-sm text-berry-plum/50 mb-4">© 2026 KOMMU-BERRY. Produced by Aditya Pranata. Inspired by local research & innovation.</p>
         <div className="flex justify-center gap-6 text-xs font-bold uppercase tracking-widest text-berry-plum/40">
           <a href="#" className="hover:text-berry-purple">Privacy</a>
           <a href="#" className="hover:text-berry-purple">Terms</a>
-          <a href="#" className="hover:text-berry-purple">Contact</a>
+          <a href="https://wa.me/62895418414576" target="_blank" rel="noopener noreferrer" className="hover:text-berry-purple flex items-center gap-1">
+            WhatsApp: 0895418414576
+          </a>
         </div>
       </footer>
 
@@ -637,6 +772,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <ProductModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
